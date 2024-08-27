@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Book-Themed Section Start -->
+<div class="container mt-4">
+    <div class="row">
+        <!-- Sidebar with Book and Chapter Navigation -->
+        <aside class="col-lg-3 col-md-4 col-sm-12 mb-4">
+            <!-- Book Title -->
+            <h4 class="mb-4">{{ article.title }}</h3>
+
+            <!-- Search Bar for Chapters -->
+            <div class="mb-4">
+                <input type="text" class="form-control" id="chapterSearch" placeholder="Search chapters...">
+            </div>
+
+            <!-- Chapter Details -->
+            <div class="mb-4">
+                <h6>Chapter {{ current_chapter.chapter_number }}: {{ current_chapter.title }}</h5>
+                <p><strong>Author:</strong> {{ article.author }}</p>
+                <p><strong>Created:</strong> {{ current_chapter.created_at|date:"F j, Y" }}</p>
+                <hr>
+                <!-- Sidebar Navigation for Chapters -->
+                <ul class="list-group" id="chapterList">
+                    {% for chapter in all_chapters %}
+                    <li class="list-group-item">
+                        {% if chapter.chapter_number == current_chapter.chapter_number %}
+                        <a  href="{% url 'blog:chapter_view' title=article.title chapter_no=chapter.chapter_number %}" class="chapter-link " style="text-decoration:none;active:none;" >
+                             {{ chapter.chapter_number }}: {{ chapter.title }}
+                             <span class="badge bg-primary rounded-pill">Current</span>
+                        </a>
+                        {% else %}
+                        <a  href="{% url 'blog:chapter_view' title=article.title chapter_no=chapter.chapter_number %}" class="chapter-link" >
+                            {{ chapter.chapter_number }}: {{ chapter.title }}
+                       </a>
+                       {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Area for Reading a Single Chapter -->
+        <main class="col-lg-9 col-md-8 col-sm-12">
+            <div id="chapter-content-{{ current_chapter.chapter_number }}">
+                <h2 class="mb-3">{{ current_chapter.title }}</h4>
+
+                <!-- Coding Image or Code Section before Paragraphs -->
+                {% if current_chapter.image %}
+                <img src="{{ current_chapter.image.url }}" class="img-fluid mb-3" alt="Coding Image">
+                {% endif %}
+                {% if current_chapter.code %}
+                <div class="bg-light p-3 rounded position-relative mb-3">
+                    <button class="btn btn-secondary btn-sm position-absolute top-0 end-0 m-2 copy-btn" onclick="copyCode(this)">
+                        Copy Code
+                    </button>
+                    <pre class="bg-dark  p-2 rounded"><code>{{ current_chapter.code }}</code></pre>
+                </div>
+                {% endif %}
+                <div class="content">
+                    <!-- Chapter Content -->
+                    {{ markdown_content|safe }}
+
+                    <!-- Note or Explanation -->
+                    {% if current_chapter.note %}
+                    <div class="alert alert-info">{{ current_chapter.note }}</div>
+                    {% endif %}
+
+                    <!-- Navigation Buttons with Input Box for Page Number -->
+                    <div class="d-flex justify-content-between align-items-center mt-4">
+                        {% if previous_chapter %}
+                        <a href="{% url 'blog:chapter_view' title=article.title chapter_no=previous_chapter %}"  class="btn btn-primary">
+                            Previous
+                        </a>
+                        {% else %}
+                        <button class="btn btn-secondary" disabled>Previous</button>
+                        {% endif %}
+                        <input type="number" class="form-control w-25 text-center" placeholder="Page #" aria-label="Page Number">
+                        {% if next_chapter %}
+                        <a href="{% url 'blog:chapter_view' title=article.title chapter_no=next_chapter %}"  class="btn btn-primary">
+                            Next
+                        </a>
+                        {% else %}
+                        <button class="btn btn-secondary" disabled>Next</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<!-- Book-Themed Section End -->
+
+<script src={% static "js/chapter.js" %}>
+
+</script>
+{% endblock %}

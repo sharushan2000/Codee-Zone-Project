@@ -1,0 +1,17 @@
+.content-wrap {
+ border: 1px solid #e5e5e5;
+}
+
+.card {
+  height: 350px; /* Set a fixed height for the card */
+ 
+  overflow: hidden; /* Hide any content that overflows */
+}
+
+.card-body {
+  height: 150px; /* Set a fixed height for the card body */
+ 
+  overflow-y: auto; /* Enable vertical scrolling if content exceeds the height */
+}
+
+
