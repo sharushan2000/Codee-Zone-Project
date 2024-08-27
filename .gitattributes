@@ -1,11 +1,26 @@
-# Exclude JavaScript libraries and frontend assets from language stats
-static/js/* linguist-vendored
-node_modules/* linguist-vendored
-assets/* linguist-vendored
+# Treat frontend assets as vendored
+static/* linguist-vendored
 
-# Exclude minified or generated files
+# Ignore node_modules (if you use npm/yarn)
+node_modules/* linguist-vendored
+
+# Ignore generated and minified files
 *.min.js linguist-generated
+*.min.css linguist-generated
 *.map linguist-generated
 
-# Documentation files, not part of the main codebase
+# Ignore documentation files
+*.md linguist-documentation
 docs/* linguist-documentation
+
+# Normalize line endings for all text files
+* text=auto
+
+# Mark binary files
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+
+# Ignore third-party or external dependencies (if any are included)
+third_party/* linguist-vendored
