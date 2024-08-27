@@ -1,0 +1,11 @@
+# Exclude JavaScript libraries and frontend assets from language stats
+static/js/* linguist-vendored
+node_modules/* linguist-vendored
+assets/* linguist-vendored
+
+# Exclude minified or generated files
+*.min.js linguist-generated
+*.map linguist-generated
+
+# Documentation files, not part of the main codebase
+docs/* linguist-documentation
