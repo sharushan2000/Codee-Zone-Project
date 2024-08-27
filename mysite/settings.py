@@ -29,10 +29,13 @@ SECRET_KEY = 'django-insecure-i3nx)x99voopg84g1r@a#q^p(cewafobwu4sn9ofo1myc)&vn+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
+if env('DEVELOPMENT') == 'True':
+    DEBUG = True
+else:
+    DEBUG = False
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*'] # Add this line to the ALLOWED_HOSTS list
 
 
 # Application definition
@@ -91,7 +94,7 @@ DATABASES = {
     }
 }
 
-
+# if env('DEVELOPMENT') != 'True':
 DATABASES['default']= dj_database_url.parse(env('DATABASE_URL')) # Add this line to the DATABASES dictionary
 
 
