@@ -35,8 +35,8 @@ else:
     DEBUG = False
 
 
-ALLOWED_HOSTS = ['*'] # Add this line to the ALLOWED_HOSTS list
-
+ALLOWED_HOSTS = ['codee-zone-project-production.up.railway.app','localhost',"127.0.0.1"] # Add this line to the ALLOWED_HOSTS list
+CSRF_TRUSTED_ORIGINS = ['https://codee-zone-project-production.up.railway.app'] # Add this line to the CSRF_TRUSTED_ORIGINS list
 
 # Application definition
 
@@ -94,8 +94,8 @@ DATABASES = {
     }
 }
 
-# if env('DEVELOPMENT') != 'True':
-DATABASES['default']= dj_database_url.parse(env('DATABASE_URL')) # Add this line to the DATABASES dictionary
+if env('DEVELOPMENT') == 'False':
+    DATABASES['default']= dj_database_url.parse(env('DATABASE_URL')) # Add this line to the DATABASES dictionary
 
 
 
