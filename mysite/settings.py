@@ -35,8 +35,9 @@ else:
     DEBUG = False
 
 
-ALLOWED_HOSTS = ['*'] # Add this line to the ALLOWED_HOSTS list
-CSRF_TRUSTED_ORIGINS = ['https://codee-zone-project-production.up.railway.app'] # Add this line to the CSRF_TRUSTED_ORIGINS list
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "codee-zone.up.railway.app"] 
+CSRF_TRUSTED_ORIGINS = ['https://codee-zone.up.railway.app']
+ # Add this line to the CSRF_TRUSTED_ORIGINS list
 
 # Application definition
 
